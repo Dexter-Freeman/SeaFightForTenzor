@@ -38,60 +38,75 @@ const chooseVerticalOrientation = () => random(100) > 50 ? true : false;
 
 const chooseRandomCellId = () => { 
     const id = random(100);
-    console.log(`id - ${id}`);
+    console.log(`chooseRandomCellId - id - ${id}`);
     return id;
 };
 
+const cloneField = (field) => field.map(cell => ({...cell})); // create deep copy of field
+
+const placeShip = (initialField, newField, shipLength, cellId, length, isVertical) => {
+
+    // console.log(`start placeShip`);
+    // // console.log(`initialField - ${JSON.stringify(initialField)}`);
+    // console.log(`newField - ${JSON.stringify(newField)}`);
+    // console.log(`shipLength - ${JSON.stringify(shipLength)}`);
+    // console.log(`cellId - ${JSON.stringify(cellId)}`);
+    // console.log(`length - ${JSON.stringify(length)}`);
+    // console.log(`isVertical - ${JSON.stringify(isVertical)}`);
+
+    if (newField[cellId].hasShip == true) { // New attempt
+            // console.log(`newField[cellId].hasShip == true  - // New attempt`);
+        return placeShip(initialField, cloneField(initialField), shipLength, chooseRandomCellId(), shipLength, chooseVerticalOrientation());
+    } else {
+            // console.log(`newField[cellId].hasShip == false`);
+        newField[cellId].hasShip = true; // Occupy the cell
+        const restLength = length - 1; // Reduce the length
+            // console.log(`restLength = ${restLength}`);
+        if (restLength == 0) {
+                // console.log(`restLength = ${restLength} - return newField`);
+                // console.log(`${JSON.stringify(newField)}`);
+            return newField; // Все палубы корабля расставлены, возвращаем новое поле
+
+        } else {
+            if (isVertical) {
+                    // console.log(`isVertical = ${isVertical}`);
+                const x = newField[cellId].x; // Координата Х следующей ячейки
+                    // console.log(`x = ${x}`);
+                const nextY = newField[cellId].y + 1; // Координата Y следующей ячейки
+                    //  console.log(`nextY = ${nextY}`);
+                if (nextY > 9) { // Такой ячейки не существует. Пробуем снова
+                        // console.log(`nextY = ${nextY}  // Такой ячейки не существует. Пробуем снова ------------------`);
+                    return placeShip(initialField, cloneField(initialField), shipLength, chooseRandomCellId(), shipLength, chooseVerticalOrientation());
+                }
+                 
+                const newCellId = newField.findIndex(cell => cell.x == x && cell.y == nextY); // id следующей ячейки
+                    // console.log(`newCellId = ${newCellId}`);
+                return placeShip(initialField, cloneField(newField), shipLength, newCellId, restLength, isVertical);
+            } else {
+                // console.log(`isVertical = ${isVertical}`);
+                const y = newField[cellId].y; // Координата Y следующей ячейки
+                    // console.log(`y = ${y}`);
+                const nextX = newField[cellId].x + 1; // Координата Х следующей ячейки
+                    //  console.log(`nextX = ${nextX}`);
+                if (nextX > 9) { // Такой ячейки не существует. Пробуем снова
+                        // console.log(`nextX = ${nextX}  // Такой ячейки не существует. Пробуем снова -------------`);
+                    return placeShip(initialField, cloneField(initialField), shipLength, chooseRandomCellId(), shipLength, chooseVerticalOrientation());
+                }
+                 
+                const newCellId = newField.findIndex(cell => cell.x == nextX && cell.y == y); // id следующей ячейки
+                    // console.log(`newCellId = ${newCellId}`);
+                return placeShip(initialField, cloneField(newField), shipLength, newCellId, restLength, isVertical);
+            }
+        };
+    }
+};
+
+// console.log(`Plase ship 4 length -----------------------------`);
+// placeShip(createEmptyField(), createEmptyField(), 4, 92, 4, true);
+
 const fillField = (field, ships) => {
 
-    if (ships.length == 0) {
-        return field;
-    }
-
-    let newField = field.map(cell => ({...cell})); // create deep copy of field
-    let  shipLength = ships[0];
-    const isVerticalShip = chooseVerticalOrientation();
-    const startCellId = chooseRandomCellId(); // Ship's starting cell
-    let xCoord = newField[startCellId].x;
-    let yCoord = newField[startCellId].y;
-
-    const fitShip = (field, shipLength, isVertical, cellId) => {
-        if (shipLength == 0) {
-            return field;
-        }
-        let cellsForShip = [];
-        cellsForShip.push(field[startCellId]);
-        shipLength -= 1;
-        let nex
-    };
-
-    const f = (initialField, newField, shipLength, startCellId, cellId, isVertical) => {
-        if (shipLength == 0 ) {
-            return newField;
-        }
-
-        if (newField[cellId].hasShip) {
-            return f(initialField, )
-        }
-    };
-    
-
-    // const willTheShipFit = (shipLength, isVertical)
-
-    if (newField[startCellId].hasShip) {
-        return fillField(field, ships);
-    } else {
-        newField[startCellId].hasShip = true;
-        shipLength -= 1;
-
-    }
-
-    // разместить корабль
-    // if (isVertical) {
-
-    // }
-
-}
+};
 
 
 // console.log(`emptyCeil - ${JSON.stringify(createEmptyCeil(1, 1))}`);
