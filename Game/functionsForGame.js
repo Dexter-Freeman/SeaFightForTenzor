@@ -38,7 +38,7 @@ const chooseVerticalOrientation = () => random(100) > 50 ? true : false;
 
 const chooseRandomCellId = () => { 
     const id = random(100);
-    console.log(`chooseRandomCellId - id - ${id}`);
+    // console.log(`chooseRandomCellId - id - ${id}`);
     return id;
 };
 
@@ -104,9 +104,34 @@ const placeShip = (initialField, newField, shipLength, cellId, length, isVertica
 // console.log(`Plase ship 4 length -----------------------------`);
 // placeShip(createEmptyField(), createEmptyField(), 4, 92, 4, true);
 
-const fillField = (field, ships) => {
+const countShips = (field) => field.filter(cell => cell.hasShip == true).length;
 
+const shipsCellsIds = field => JSON.stringify(field.filter(cell => cell.hasShip == true));
+
+
+const fillField = (field, ships) => {
+    // console.log(`start fillField  --- ships - ${ships.length}`);
+    // console.log(`countShips  --- ships - ${countShips(field)}`);
+    if (ships.length == 0) { // All ships are placed, return the completed field
+        // console.log(`ships.length == 0 ------ return field`)
+        return field;
+    }
+    const shipLength = ships[0];
+    // console.log(`shipLength  ---  ${shipLength}`);
+    // console.log(`// Place the ship`);
+    // Place the ship
+    const newField = placeShip(field, cloneField(field), shipLength, chooseRandomCellId(), shipLength, chooseVerticalOrientation());
+
+    const newShips = ships.slice(1); // Remove this ship from the array
+    // console.log(`return fillField(newField, newShips);`);
+    return fillField(newField, newShips);
 };
+
+// console.log(`fillField  ---  ${fillField(createEmptyField(), ships)}`);
+
+// const field = fillField(createEmptyField(), ships);
+// console.log(`shipsCellsIds ------  ${shipsCellsIds(field)}`)
+// console.log(`field str 137  - ${JSON.stringify(field)}`);
 
 
 // console.log(`emptyCeil - ${JSON.stringify(createEmptyCeil(1, 1))}`);
