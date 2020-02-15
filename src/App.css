@@ -1,15 +1,61 @@
 .app-wrapper {
-  width: 100%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
-  grid-template-areas: 
-  "h h"
-  "n c";
+	width: 100%;
+	margin: 0 auto;
 }
 
-.app-wrapper-content {
-  grid-area: c;
-  background-color: #f99808;
+.centered {
+	text-align: center;
+}
+
+.fields {
+	display: flex;
+    justify-content: center;
+}
+
+.field {
+	width: 350px;
+	margin-top: 50px;
+	margin-left: 50px;
+}
+
+.field::after {
+	clear: both;
+	content: "";
+	display: table;
+}
+
+.field-name {
+	text-align: center;
+}
+
+.cell {
+	background: #fff;
+	border: 1px solid #999;
+	float: left;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 34px;
+	height: 34px;
+	margin-right: -1px;
+	margin-top: -1px;
+	padding: 0;
+	text-align: center;
+	width: 34px;
+	position: relative;
+}
+
+.cell.visibleShip {
+	background: #ddd;
+}
+
+.cell span.topLine {
+	position: absolute;
+	top: -2.4rem;
+	left: 8px;
+}
+
+.cell span.leftLine {
+	position: absolute;
+	top: -2px;
+	left: -2rem;
 }
