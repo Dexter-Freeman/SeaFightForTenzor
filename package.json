@@ -4,6 +4,7 @@
   "private": true,
   "description": "Dexter Freeman's Projects",
   "author": "Dexter Freeman <vse.pisma.tut@gmail.com> (https://github.com/Dexter-Freeman)",
+  "homepage": "https://dexter-freeman.github.io/sea-fight-for-tenzor",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
