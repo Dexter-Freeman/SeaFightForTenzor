@@ -29,7 +29,7 @@
 }
 
 .cell {
-	background: #fff;
+	background: skyblue;
 	border: 1px solid #999;
 	float: left;
 	font-size: 24px;
@@ -45,7 +45,7 @@
 }
 
 .cell.visibleShip {
-	background: #ddd;
+	background: #555;
 }
 
 .cell span.topLine {

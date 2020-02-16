@@ -7,7 +7,7 @@ import {
 	// random, 
 	createEmptyField, 
 	// chooseVerticalOrientation, 
-	// chooseRandomCellId, 
+	chooseRandomCellId, 
 	cloneField, 
 	// placeShip, 
 	comp,
@@ -22,13 +22,12 @@ export default class App extends React.Component {
 		this.state = {
 		  playerName: '',
 		  tempPlayerName: '',
-		  playerField: [],
 		  playerScore: 0,
-		  compField: [],
 		  compScore: 0,
+		  playerField: [],
+		  compField: [],
 		  gameOver: false,
-		  playerHits: 0,
-		  compHits: 0
+		  message: 'Ты стреляешь'
 		};
 	};
 	
@@ -53,37 +52,62 @@ export default class App extends React.Component {
 		});
 	};
 
-	componentDidUpdate() {
-		console.log(`componentDidUpdate shoot end - ${this.state.playerScore}`);
-	}
+	// componentDidUpdate() {
+	// 	console.log(`componentDidUpdate shoot end - ${this.state.playerScore}`);
+	// }
 
 	shoot(id) {
 
-		let playerScore = this.state.playerScore;
-		let gameOver = this.state.gameOver;
+		let {playerScore, gameOver, compField, playerField, compScore, message} = {...this.state};
+		// let gameOver = this.state.gameOver;
 
-		if (this.state.gameOver) {
-			return;
+		if (gameOver || compField[id].shooted) {
+			return false;
 		}
 
-		if (this.state.compField[id].shooted) {
-			return;
-		}
+		// if (compField[id].shooted) {
+		// 	return false;
+		// }
 		
-		let newCompField = cloneField(this.state.compField); // Создаем клон поля компьютера
+		let newCompField = cloneField(compField); // Создаем клон поля компьютера
+		let newPlayerField = cloneField(playerField);
 		newCompField[id].shooted = true; // Отмечаем, что по клетке стреляли
 		
 		if (newCompField[id].hasShip) {
 			newCompField[id].isShipVisible = true; // Если в ячейке был корабль, то он становится видимым
 			playerScore += 1; // Увеличиваем счет игрока
-			if (playerScore === 20) {
-				gameOver = true;
-			}
+			
 		}
+
+		const compShoot = id => {
+			if (playerField[id].shooted === true) {
+				return compShoot(chooseRandomCellId());
+			}
+			this.setState({
+				message: 'Стреляет компьютер'
+			})
+			newPlayerField[id].shooted = true;
+			if (newPlayerField[id].hasShip) {
+				compScore += 1;
+			}
+		};
+
+		compShoot(chooseRandomCellId());
+
+		message = 'Ты стреляешь';
+
+		if (playerScore === 20 || compScore === 20) {
+			gameOver = true;
+			message = 'Игра окончена';
+		}
+
 		return this.setState({
 			gameOver,
 			playerScore,
-			compField: newCompField
+			compScore,
+			playerField: newPlayerField,
+			compField: newCompField,
+			message
 		});
 		
 	};
@@ -101,7 +125,7 @@ export default class App extends React.Component {
 						Сыграем в морской бой?
 					</div>
 	
-					<form onSubmit={this.onGameStart.bind(this)} className='centered'>
+					<form onSubmit={this.onGameStart.bind(this)} className='centered' >
 
 						<div>
 							<label>
@@ -119,8 +143,8 @@ export default class App extends React.Component {
 			);
 		}
 		return (
-			<div className='app-wrapper'>
-				<div>
+			<div className='app-wrapper' >
+				<div className='centered' >
 					Ну давай играть {this.state.playerName}
 				</div>
 				<Fields 
@@ -129,6 +153,9 @@ export default class App extends React.Component {
 					shoot={this.shoot.bind(this) } 
 					playerName={this.state.playerName}
 				/>
+				<div className='message centered' >
+					{this.state.message}
+				</div>
 			</div>
 		)
 		
