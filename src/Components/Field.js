@@ -1,5 +1,6 @@
 import React from 'react';
 import Cell from './Cell/Cell.js';
+// import { comp } from '../Game/game.js';
 
 export default function Field(props) {
 
@@ -15,6 +16,7 @@ export default function Field(props) {
                     hasShip={cell.hasShip}
                     shooted={cell.shooted}
                     isShipVisible={cell.isShipVisible}
+                    shoot={props.shoot ? id => props.shoot(cell.id) : () => {}}
                 />)
             }
 

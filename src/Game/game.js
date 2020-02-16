@@ -1,7 +1,21 @@
 
 export const ships = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 
-export const createEmptyCell = (x, y, id) => { // Create empty ceil
+export const comp = 'Comp';
+export const player = 'Player'
+
+export const createEmptyCell = (x, y, id, whose) => { // Create empty ceil
+    if (whose === player) {
+        return {
+            hasShip: false,
+            x,
+            y,
+            id,
+            shooted: false,
+            isShipVisible: true,
+            className: 'cell'
+        }
+    }
 
     return {
         hasShip: false,
@@ -9,7 +23,7 @@ export const createEmptyCell = (x, y, id) => { // Create empty ceil
         y,
         id,
         shooted: false,
-        isShipVisible: true,
+        isShipVisible: false,
         className: 'cell'
     }
 
@@ -19,14 +33,14 @@ export const random = (num) => {
     return Math.floor(Math.random() * num);
 };
 
-export const createEmptyField = () => { // Create empty field
+export const createEmptyField = (whose) => { // Create empty field
     let field = [], id = 0;
 
     for (let y = 0; y < 10; y++) {
 
         for (let x = 0; x < 10; x++) {
 
-            field.push(createEmptyCell(x, y, id));
+            field.push(createEmptyCell(x, y, id, whose));
             id += 1;
 
         }

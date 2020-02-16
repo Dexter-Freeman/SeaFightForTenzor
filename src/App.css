@@ -54,7 +54,7 @@
 	left: 8px;
 }
 
-.cell span.leftLine {
+.cell span.leftColumn {
 	position: absolute;
 	top: -2px;
 	left: -2rem;
