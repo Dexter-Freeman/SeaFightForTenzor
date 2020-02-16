@@ -1,11 +1,16 @@
-body {
-	background-size: cover;
-    background-image: url(https://cdn.quizzclub.com/trivia/2016-11/kakoe-krupnoe-morskoe-srazhenie-vt…snovnymi-udarnymi-silami-s-obeih-storon-v-nem-vystupali-imenno-avianos.jpg);
-    background-repeat: no-repeat;
+html { 
+	height: 100%; 
 }
 
-.root {
-	height: 100vh;
+body {
+	background-size: cover;
+    background-image: url('./assets/img/background.jpg');
+	background-repeat: no-repeat;
+	height: 100%; 
+}
+
+#root {
+	height: 100%;
 	display: flex;
     align-items: center;
 }
@@ -13,23 +18,113 @@ body {
 .app-wrapper {
 	width: 100%;
 	margin: 0 auto;
-	max-width: 700px;
-	padding: 0 10px;
+	padding: 20px 10px;
+	height: 100%;
+	/* height: 100vh; */
+}
+
+.greeting span {
+	background-color: #28a79fcc;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 5px 30px;
+    color: white;
+    display: inline-block;
+    border-radius: 0.3rem;
+}
+
+.propose {
+	margin-top: 10px;
+}
+
+.propose span {
+	background-color: #28a79fcc;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 5px 30px;
+    color: white;
+}
+
+form div {
+	margin-top: 10px;
+}
+
+label {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name-input {
+	text-align: center;
+	font-weight: 700;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+	transition: all 0.15s ease-in-out;
+	margin-top: 10px;
+}
+
+.button {
+	display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: all 0.15s ease-in-out;
+}
+
+.button-start {
+	background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.button-again {
+	color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
 }
 
 .centered {
 	text-align: center;
 }
 
+.game {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-header {
+	background-color: #28a79fcc;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 5px 30px;
+    color: white;
+    display: inline-block;
+}
+
 .fields {
 	display: flex;
-    justify-content: center;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .field {
 	width: 350px;
-	margin-top: 50px;
-	margin-left: 50px;
+	margin-top: 40px;
+	margin-left: 45px;
 }
 
 .field::after {
@@ -40,6 +135,14 @@ body {
 
 .field-name {
 	text-align: center;
+}
+
+.field-name span {
+	/* background-color: #28a79fcc; */
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 5px 30px;
+    color: white;
 }
 
 .cell {
@@ -72,4 +175,29 @@ body {
 	position: absolute;
 	top: -2px;
 	left: -2rem;
+}
+
+.message-text {
+	background-color: #28a79fcc;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 5px 30px;
+    color: white;
+}
+
+.score {
+	background-color: #28a79fcc;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 5px 30px;
+    color: white;
+    display: inline-block;
+}
+
+.score span {
+	margin-right: 10px;
+}
+
+.again {
+	margin-top: 10px;
 }

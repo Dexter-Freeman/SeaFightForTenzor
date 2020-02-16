@@ -6,6 +6,7 @@ export default function Field(props) {
     return (
         <div className='field' >
 
+            <div>
             {
                 props.field.map(cell => <Cell
                     x={cell.x}
@@ -18,9 +19,10 @@ export default function Field(props) {
                     shoot={props.shoot ? id => props.shoot(cell.id) : () => {}}
                 />)
             }
+            </div>
 
             <div className='field-name' >
-                {props.whose}
+                <span>{props.whose}</span>
             </div>
         </div>
     )

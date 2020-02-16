@@ -6,18 +6,21 @@ export default function Greeting(props) {
         <div className="app-wrapper" >
             <div className='greeting centered' >
                 <span>Привет <strong>{props.playerName}</strong>!</span>
-			</div>
+            </div>
             <div className='propose centered' >
                 <span>Сыграем в морской бой?</span>
-			</div>
+            </div>
 
             <form onSubmit={props.onGameStart} className='centered' >
 
                 <div>
-                    <label>
-                        <span>Как тебя зовут?</span>
-								<input required type='text' onChange={props.onNameInput} value={props.playerName} />
-                    </label>
+                    <input
+                        required
+                        type='text'
+                        onChange={props.onNameInput}
+                        value={props.playerName}
+                        placeholder='Введи свое имя'
+                        className='name-input' />
                 </div>
 
                 <div>

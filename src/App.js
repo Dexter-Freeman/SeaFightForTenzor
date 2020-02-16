@@ -20,7 +20,7 @@ export default class App extends React.Component {
 		this.state = {
 		  playerName: '',
 		  gameStart: false,
-		  playerScore: 19,
+		  playerScore: 0,
 		  compScore: 0,
 		  playerField: [],
 		  compField: [],
@@ -155,24 +155,27 @@ export default class App extends React.Component {
 		return (
 			<div className='app-wrapper' >
 
-				<div className='centered' >
-					Ну давай играть {this.state.playerName}
-				</div>
+				<div className='game centered' >
 
-				<Fields 
-					playerField={this.state.playerField} 
-					compField={this.state.compField} 
-					shoot={this.shoot.bind(this) } 
-					playerName={this.state.playerName}
-				/>
-
-				<Message 
-					message={this.state.message} 
-					playerScore={this.state.playerScore} 
-					compScore={this.state.compScore} 
+					<span className='game-header'>Ну давай играть <strong>{this.state.playerName}</strong></span>
+					
+					<Fields 
+						playerField={this.state.playerField} 
+						compField={this.state.compField} 
+						shoot={this.shoot.bind(this) } 
+						playerName={this.state.playerName}
+						className='game-fields'
 					/>
 
-				{ this.state.gameOver ? <Again again={this.again.bind(this)} /> : '' }
+					<Message 
+						message={this.state.message} 
+						playerScore={this.state.playerScore} 
+						compScore={this.state.compScore} 
+						className='game-message'
+						/>
+
+					{ this.state.gameOver ? <Again again={this.again.bind(this)} /> : '' }
+				</div>
 
 			</div>
 		)
