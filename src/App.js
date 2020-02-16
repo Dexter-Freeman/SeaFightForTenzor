@@ -1,19 +1,17 @@
 import React from 'react';
 import './App.css';
 import Fields from './Components/Fields.js';
-import {
-	ships, 
-	// createEmptyCell, 
-	// random, 
-	createEmptyField, 
-	// chooseVerticalOrientation, 
-	chooseRandomCellId, 
-	cloneField, 
-	// placeShip, 
-	comp,
-	player,
-	fillField } from './Game/game.js';
-
+import Message from './Components/Message.js';
+import Again from './Components/Again.js';
+import Greeting from './Components/Greeting.js';
+import {ships, 
+		createEmptyField, 
+		chooseRandomCellId, 
+		cloneField, 
+		comp,
+		player,
+		fillField } from './Game/game.js';
+	
 
 export default class App extends React.Component {
 
@@ -21,8 +19,8 @@ export default class App extends React.Component {
 		super(props);
 		this.state = {
 		  playerName: '',
-		  tempPlayerName: '',
-		  playerScore: 0,
+		  gameStart: false,
+		  playerScore: 19,
 		  compScore: 0,
 		  playerField: [],
 		  compField: [],
@@ -31,135 +29,152 @@ export default class App extends React.Component {
 		};
 	};
 	
-
 	onNameInput(event) {
 		this.setState({
-			tempPlayerName: event.target.value
+			playerName: event.target.value
 		})
 	};
 
 	onGameStart(event) {
 		event.preventDefault();
 		this.setState({
-			playerName: this.state.tempPlayerName
+			gameStart: true
 		});
 	};
 
-	componentDidMount() {
+	componentDidMount() {  // At the beginning of the game we arrange the ships
 		this.setState({
 			compField: fillField(createEmptyField(comp), ships),
 			playerField: fillField(createEmptyField(player), ships)
 		});
 	};
 
-	// componentDidUpdate() {
-	// 	console.log(`componentDidUpdate shoot end - ${this.state.playerScore}`);
-	// }
+	playerShoot(cellId) {
+		let {playerScore, gameOver, compField, message} = {...this.state};
 
-	shoot(id) {
-
-		let {playerScore, gameOver, compField, playerField, compScore, message} = {...this.state};
-		// let gameOver = this.state.gameOver;
-
-		if (gameOver || compField[id].shooted) {
+		if ( gameOver || compField[cellId].shooted ) {
 			return false;
 		}
+		
+		let newCompField = cloneField(compField); // Create a computer field clone
+		
+		newCompField[cellId].shooted = true; // Note that the cell was shot
+		
+		if ( newCompField[cellId].hasShip ) {
 
-		// if (compField[id].shooted) {
-		// 	return false;
-		// }
-		
-		let newCompField = cloneField(compField); // Создаем клон поля компьютера
-		let newPlayerField = cloneField(playerField);
-		newCompField[id].shooted = true; // Отмечаем, что по клетке стреляли
-		
-		if (newCompField[id].hasShip) {
-			newCompField[id].isShipVisible = true; // Если в ячейке был корабль, то он становится видимым
-			playerScore += 1; // Увеличиваем счет игрока
+			newCompField[cellId].isShipVisible = true; 
+			// If there was a ship in the cell, then it becomes visible
+			playerScore += 1; // Increase player score
 			
 		}
 
-		const compShoot = id => {
-			if (playerField[id].shooted === true) {
-				return compShoot(chooseRandomCellId());
-			}
-			this.setState({
-				message: 'Стреляет компьютер'
-			})
-			newPlayerField[id].shooted = true;
-			if (newPlayerField[id].hasShip) {
-				compScore += 1;
-			}
-		};
+		message = 'Стреляет компьтер';
 
-		compShoot(chooseRandomCellId());
+		if  ( playerScore === 20 ) {
 
-		message = 'Ты стреляешь';
-
-		if (playerScore === 20 || compScore === 20) {
 			gameOver = true;
-			message = 'Игра окончена';
+			message = 'Игра окончена. Ты победил! Поздравляю!';
+
 		}
 
 		return this.setState({
 			gameOver,
 			playerScore,
-			compScore,
-			playerField: newPlayerField,
 			compField: newCompField,
 			message
 		});
-		
 	};
 
-	
+	compShoot() {
+		let {gameOver, playerField, compScore, message} = {...this.state};
+		const cellId = chooseRandomCellId();		
+
+		if ( gameOver ) {
+			return false;
+		}
+
+		if ( playerField[cellId].shooted === true ) {
+			return this.compShoot();
+		}
+
+		let newPlayerField = cloneField(playerField);
+		newPlayerField[cellId].shooted = true;
+
+		if ( newPlayerField[cellId].hasShip ) {
+			compScore += 1;
+		}
+
+		message = 'Ты стреляешь';
+
+		if ( compScore === 20 ) {
+			gameOver = true;
+			message = 'Игра окончена. Победил компьютер. Не расстраивайся, в следующий раз повезет!';
+		}
+
+		return this.setState({
+			gameOver,
+			compScore,
+			playerField: newPlayerField,
+			message
+		});
+	};
+
+	shoot(id) {
+
+		this.playerShoot(id);
+
+		setTimeout(this.compShoot.bind(this), 1000); 
+		// Delay so that the computer does not respond immediately
+
+	};
+
+	again() {
+
+		return this.setState({
+			playerName: this.state.playerName,
+			playerScore: 19,
+			compScore: 0,
+			compField: fillField(createEmptyField(comp), ships),
+			playerField: fillField(createEmptyField(player), ships),
+			gameOver: false,
+			message: 'Ты стреляешь'
+		})
+	};
+
 	render() {
 
-		if (!this.state.playerName) {
+		if ( !this.state.gameStart ) {
 			return (
-				<div className="app-wrapper" >
-					<div className='centered' >
-						Привет {this.state.tempPlayerName}!
-					</div>
-					<div className='centered' >
-						Сыграем в морской бой?
-					</div>
-	
-					<form onSubmit={this.onGameStart.bind(this)} className='centered' >
-
-						<div>
-							<label>
-								Как тебя зовут?
-								<input required type='text' onChange={this.onNameInput.bind(this)} value={this.state.tempPlayerName} />
-							</label>
-						</div>
-
-						<div>
-							<button type='submit' >Начать игру!</button>
-						</div>
-
-					</form>
-				</div>
+				<Greeting 
+					playerName={this.state.playerName} 
+					onGameStart={this.onGameStart.bind(this)} 
+					onNameInput={this.onNameInput.bind(this)} 
+					/>
 			);
 		}
 		return (
 			<div className='app-wrapper' >
+
 				<div className='centered' >
 					Ну давай играть {this.state.playerName}
 				</div>
+
 				<Fields 
 					playerField={this.state.playerField} 
 					compField={this.state.compField} 
 					shoot={this.shoot.bind(this) } 
 					playerName={this.state.playerName}
 				/>
-				<div className='message centered' >
-					{this.state.message}
-				</div>
+
+				<Message 
+					message={this.state.message} 
+					playerScore={this.state.playerScore} 
+					compScore={this.state.compScore} 
+					/>
+
+				{ this.state.gameOver ? <Again again={this.again.bind(this)} /> : '' }
+
 			</div>
 		)
-		
 	}
 };
-
-

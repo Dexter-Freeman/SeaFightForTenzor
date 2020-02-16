@@ -1,6 +1,5 @@
 import React from 'react';
-import Cell from './Cell/Cell.js';
-// import { comp } from '../Game/game.js';
+import Cell from './Cell.js';
 
 export default function Field(props) {
 

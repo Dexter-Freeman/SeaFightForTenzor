@@ -1,6 +1,20 @@
+body {
+	background-size: cover;
+    background-image: url(https://cdn.quizzclub.com/trivia/2016-11/kakoe-krupnoe-morskoe-srazhenie-vt…snovnymi-udarnymi-silami-s-obeih-storon-v-nem-vystupali-imenno-avianos.jpg);
+    background-repeat: no-repeat;
+}
+
+.root {
+	height: 100vh;
+	display: flex;
+    align-items: center;
+}
+
 .app-wrapper {
 	width: 100%;
 	margin: 0 auto;
+	max-width: 700px;
+	padding: 0 10px;
 }
 
 .centered {
