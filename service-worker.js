@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/sea-fight-for-tenzor/precache-manifest.b807440ba5ea008b8324bdf04465c860.js"
+  "/sea-fight-for-tenzor/precache-manifest.696178f9ddba4009640adea494329d9f.js"
 );
 
 self.addEventListener('message', (event) => {
