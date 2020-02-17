@@ -8,8 +8,6 @@ import {ships,
 		createEmptyField, 
 		chooseRandomCellId, 
 		cloneField, 
-		comp,
-		player,
 		fillField } from './Game/game.js';
 	
 
@@ -44,8 +42,8 @@ export default class App extends React.Component {
 
 	componentDidMount() {  // At the beginning of the game we arrange the ships
 		this.setState({
-			compField: fillField(createEmptyField(comp), ships),
-			playerField: fillField(createEmptyField(player), ships)
+			compField: fillField(createEmptyField(false), ships),
+			playerField: fillField(createEmptyField(true), ships)
 		});
 	};
 
@@ -134,8 +132,8 @@ export default class App extends React.Component {
 			playerName: this.state.playerName,
 			playerScore: 19,
 			compScore: 0,
-			compField: fillField(createEmptyField(comp), ships),
-			playerField: fillField(createEmptyField(player), ships),
+			compField: fillField(createEmptyField(false), ships),
+			playerField: fillField(createEmptyField(true), ships),
 			gameOver: false,
 			message: 'Ты стреляешь'
 		})
