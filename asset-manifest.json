@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/sea-fight-for-tenzor/static/css/main.6090f0ec.chunk.css",
-    "main.js": "/sea-fight-for-tenzor/static/js/main.cd9dd0ff.chunk.js",
-    "main.js.map": "/sea-fight-for-tenzor/static/js/main.cd9dd0ff.chunk.js.map",
+    "main.css": "/sea-fight-for-tenzor/static/css/main.5f1d4d77.chunk.css",
+    "main.js": "/sea-fight-for-tenzor/static/js/main.4c815a9b.chunk.js",
+    "main.js.map": "/sea-fight-for-tenzor/static/js/main.4c815a9b.chunk.js.map",
     "runtime-main.js": "/sea-fight-for-tenzor/static/js/runtime-main.ad21c08b.js",
     "runtime-main.js.map": "/sea-fight-for-tenzor/static/js/runtime-main.ad21c08b.js.map",
     "static/js/2.1cd90ea7.chunk.js": "/sea-fight-for-tenzor/static/js/2.1cd90ea7.chunk.js",
     "static/js/2.1cd90ea7.chunk.js.map": "/sea-fight-for-tenzor/static/js/2.1cd90ea7.chunk.js.map",
     "index.html": "/sea-fight-for-tenzor/index.html",
-    "precache-manifest.14245c7d6e5aa48a996ea763119054a1.js": "/sea-fight-for-tenzor/precache-manifest.14245c7d6e5aa48a996ea763119054a1.js",
+    "precache-manifest.b807440ba5ea008b8324bdf04465c860.js": "/sea-fight-for-tenzor/precache-manifest.b807440ba5ea008b8324bdf04465c860.js",
     "service-worker.js": "/sea-fight-for-tenzor/service-worker.js",
-    "static/css/main.6090f0ec.chunk.css.map": "/sea-fight-for-tenzor/static/css/main.6090f0ec.chunk.css.map",
+    "static/css/main.5f1d4d77.chunk.css.map": "/sea-fight-for-tenzor/static/css/main.5f1d4d77.chunk.css.map",
     "static/js/2.1cd90ea7.chunk.js.LICENSE.txt": "/sea-fight-for-tenzor/static/js/2.1cd90ea7.chunk.js.LICENSE.txt",
     "static/media/App.css": "/sea-fight-for-tenzor/static/media/background.f6c7499f.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.ad21c08b.js",
     "static/js/2.1cd90ea7.chunk.js",
-    "static/css/main.6090f0ec.chunk.css",
-    "static/js/main.cd9dd0ff.chunk.js"
+    "static/css/main.5f1d4d77.chunk.css",
+    "static/js/main.4c815a9b.chunk.js"
   ]
 }
